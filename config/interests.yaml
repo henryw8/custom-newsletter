@@ -19,21 +19,29 @@
 # =============================================================================
 
 interests:
-  - name: "Technology"
+  - name: "AI News"
     feeds:
-      - url: "https://hnrss.org/frontpage"
-        max_items: 5
-      - url: "https://lobste.rs/rss"
+      - url: "https://planet-ai.net/rss.xml"
+        max_items: 4
+      - url: "https://huggingface.co/blog/feed.xml"
+        max_items: 3
+      - url: "https://deepmind.google/blog/rss.xml"
         max_items: 3
 
-  - name: "Python"
+  - name: "Sports News"
     feeds:
-      - url: "https://realpython.com/atom.xml"
-        max_items: 3
-      - url: "https://blog.python.org/feeds/posts/default"
+      - url: "https://www.espn.com/espn/rss/news"
+        max_items: 4
+      - url: "https://sports.yahoo.com/rss/"
+        max_items: 4
+      - url: "https://www.cbssports.com/rss/headlines/"
         max_items: 3
 
-  # Add your own interests below!
-  # - name: "Your Interest"
-  #   feeds:
-  #     - url: "https://your-favorite-blog.com/feed"
+  - name: "Forecasting & Analysis"
+    feeds:
+      - url: "https://www.natesilver.net/feed"
+        max_items: 3
+      - url: "https://www.electoral-vote.com/index2.rss"
+        max_items: 2
+      - url: "https://www.noahpinion.blog/feed"
+        max_items: 2
