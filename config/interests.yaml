@@ -1,0 +1,39 @@
+# =============================================================================
+# YOUR NEWSLETTER INTERESTS - Customize this file!
+# =============================================================================
+#
+# This file defines what content gets included in your daily newsletter.
+# Each "interest" is a category with a list of RSS/Atom feed URLs.
+#
+# How to find RSS feeds:
+#   - Most blogs have /feed or /rss in the URL
+#   - News sites often have /rss or /feeds/
+#   - Use Feedly or similar to discover feeds
+#
+# Example structure:
+#   interests:
+#     - name: "Category Name"
+#       feeds:
+#         - url: "https://example.com/feed"
+#           max_items: 5   # Optional: limit items per feed (default: 5)
+# =============================================================================
+
+interests:
+  - name: "Technology"
+    feeds:
+      - url: "https://hnrss.org/frontpage"
+        max_items: 5
+      - url: "https://lobste.rs/rss"
+        max_items: 3
+
+  - name: "Python"
+    feeds:
+      - url: "https://realpython.com/atom.xml"
+        max_items: 3
+      - url: "https://blog.python.org/feeds/posts/default"
+        max_items: 3
+
+  # Add your own interests below!
+  # - name: "Your Interest"
+  #   feeds:
+  #     - url: "https://your-favorite-blog.com/feed"

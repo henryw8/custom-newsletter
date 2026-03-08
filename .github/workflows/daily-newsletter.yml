@@ -1,0 +1,64 @@
+# =============================================================================
+# Daily Newsletter - GitHub Actions Workflow
+# =============================================================================
+#
+# LEARNING OBJECTIVE: Understand cron-based automation with GitHub Actions.
+#
+# GitHub Actions can run on a schedule using cron syntax (same as Unix cron).
+# Format: minute hour day-of-month month day-of-week
+#   - "0 12 * * *" = Every day at 12:00 UTC (noon)
+#   - Adjust for your timezone: 12:00 UTC = 7am EST, 4am PST, etc.
+#
+# This workflow:
+#   1. Triggers daily at the scheduled time (and on manual "workflow_dispatch")
+#   2. Checks out the repo
+#   3. Sets up Python
+#   4. Installs dependencies
+#   5. Runs main.py (which fetches feeds and sends email)
+#
+# REQUIRED: Add these secrets in your repo: Settings → Secrets and variables → Actions
+#   - SMTP_USER: Your email (e.g., yourname@gmail.com)
+#   - SMTP_PASSWORD: App password (Gmail) or API key (SendGrid)
+#   - NEWSLETTER_RECIPIENT: Where to send (can be same as SMTP_USER)
+#
+# Optional: SMTP_HOST, SMTP_PORT (defaults to Gmail)
+# =============================================================================
+
+name: Daily Newsletter
+
+on:
+  # Cron: every day at 12:00 UTC (customize for your timezone!)
+  schedule:
+    - cron: "0 12 * * *"
+
+  # Allow manual trigger for testing
+  workflow_dispatch:
+
+jobs:
+  send-newsletter:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Send newsletter
+        env:
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          NEWSLETTER_RECIPIENT: ${{ secrets.NEWSLETTER_RECIPIENT }}
+          # MCP summarization (optional - enables AI summaries)
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          # Optional: override for non-Gmail (e.g., SMTP_HOST=smtp.sendgrid.net)
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+        run: python main.py

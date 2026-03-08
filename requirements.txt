@@ -1,0 +1,19 @@
+# Custom Newsletter - Dependencies
+# =================================
+# Install with: pip install -r requirements.txt
+#
+# Each package serves a specific purpose in our pipeline:
+# - feedparser: Parse RSS/Atom feeds (the standard format for blogs & news)
+# - requests: HTTP requests to fetch feed content
+# - jinja2: HTML templating for beautiful email layouts
+# - mcp: Model Context Protocol - server + client for AI summarization (requires Python 3.10+)
+# - openai: LLM API for summarization (or use anthropic instead)
+
+python-dotenv>=1.0.0  # Load .env file into environment
+feedparser>=6.0.10
+requests>=2.31.0
+jinja2>=3.1.2
+pyyaml>=6.0.1
+mcp>=1.0.0; python_version >= "3.10"
+openai>=1.0.0
+anthropic>=0.18.0  # Optional: use ANTHROPIC_API_KEY instead of OpenAI
