@@ -61,7 +61,7 @@ def _call_llm(text: str, max_tokens: int = 150) -> str:
 
             client = Anthropic(api_key=api_key)
             response = client.messages.create(
-                model=os.environ.get("ANTHROPIC_MODEL", "claude-3-5-haiku-20241022"),
+                model=os.environ.get("ANTHROPIC_MODEL", "claude-haiku-4-5-20251001"),
                 max_tokens=max_tokens,
                 system="Summarize the following in 1-2 concise sentences for a newsletter. Be informative and neutral.",
                 messages=[{"role": "user", "content": text[:4000]}],
