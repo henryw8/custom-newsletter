@@ -65,16 +65,21 @@ def main() -> None:
         return
 
     # Summarize via MCP if API key is set (OPENAI_API_KEY or ANTHROPIC_API_KEY)
+    summarized_by = None
     if MCP_AVAILABLE and (os.environ.get("OPENAI_API_KEY") or os.environ.get("ANTHROPIC_API_KEY")):
         print("Summarizing articles with MCP...")
         articles = summarize_articles(articles, project_root)
+        if os.environ.get("OPENAI_API_KEY"):
+            summarized_by = os.environ.get("OPENAI_MODEL", "gpt-4o-mini")
+        else:
+            summarized_by = os.environ.get("ANTHROPIC_MODEL", "claude-haiku-4-5-20251001")
     elif os.environ.get("OPENAI_API_KEY") or os.environ.get("ANTHROPIC_API_KEY"):
         print("MCP not available (requires Python 3.10+). Using feed summaries.")
     else:
         print("Skipping MCP summarization (set OPENAI_API_KEY or ANTHROPIC_API_KEY to enable)")
 
     print("Building newsletter...")
-    html = build_html(articles, str(template_dir))
+    html = build_html(articles, str(template_dir), summarized_by=summarized_by)
     plain = build_plain_text(articles)
 
     print("Sending email...")

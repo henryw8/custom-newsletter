@@ -96,7 +96,7 @@
   {% endfor %}
 
   <div class="footer">
-    Custom newsletter · Edit config/interests.yaml to change your feeds
+    Custom newsletter · Edit config/interests.yaml to change your feeds{% if summarized_by %} · Summaries by {{ summarized_by }}{% endif %}
   </div>
 </body>
 </html>

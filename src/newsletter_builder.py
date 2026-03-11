@@ -62,7 +62,7 @@ def fetch_all_articles(config: dict) -> list[dict]:
     return all_articles
 
 
-def build_html(articles: list[dict], template_dir: str = "templates") -> str:
+def build_html(articles: list[dict], template_dir: str = "templates", summarized_by: str | None = None) -> str:
     """
     Render the newsletter as HTML using a Jinja2 template.
     """
@@ -82,6 +82,7 @@ def build_html(articles: list[dict], template_dir: str = "templates") -> str:
         articles=articles,
         by_category=by_category,
         date=__import__("datetime").datetime.now().strftime("%A, %B %d, %Y"),
+        summarized_by=summarized_by,
     )
     return html
 

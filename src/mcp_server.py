@@ -43,7 +43,7 @@ def _call_llm(text: str, max_tokens: int = 150) -> str:
                 messages=[
                     {
                         "role": "system",
-                        "content": "Summarize the following in 1-2 concise sentences for a newsletter. Be informative and neutral.",
+                        "content": "Summarize the following in 1-2 concise sentences for a newsletter. Be informative and neutral. Do not use markdown formatting, headers, or bullet points — plain prose only.",
                     },
                     {"role": "user", "content": text[:4000]},  # Token limit
                 ],
@@ -63,10 +63,13 @@ def _call_llm(text: str, max_tokens: int = 150) -> str:
             response = client.messages.create(
                 model=os.environ.get("ANTHROPIC_MODEL", "claude-haiku-4-5-20251001"),
                 max_tokens=max_tokens,
-                system="Summarize the following in 1-2 concise sentences for a newsletter. Be informative and neutral.",
+                system="Summarize the following in 1-2 concise sentences for a newsletter. Be informative and neutral. Do not use markdown formatting, headers, or bullet points — plain prose only.",
                 messages=[{"role": "user", "content": text[:4000]}],
             )
-            return response.content[0].text.strip()
+            import re
+            text_out = response.content[0].text.strip()
+            text_out = re.sub(r"^#+\s*", "", text_out, flags=re.MULTILINE)
+            return text_out
         except Exception as e:
             print(f"Anthropic error: {e}", file=sys.stderr)
             return ""
