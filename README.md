@@ -1,3 +1,5 @@
+> "Why read the whole internet when your newsletter can do it for you?" -- This repo, probably
+
 # Custom Newsletter
 
 A pedagogical project that emails you a personalized daily newsletter based on your interests. Runs automatically every morning via GitHub Actions cron.
